@@ -1,0 +1,53 @@
+<h1>{{title}}</h1>
+<div class="form-inline">
+    <div class="form-group col-md-2">
+      <label class="checkbox-inline">
+        <input type="checkbox" value="0" [(ngModel)]="imported">Imported
+      </label>
+    </div>
+    <div class="form-group col-md-2">
+        <select  [(ngModel)]="selectedOption" class="form-control">
+          <option *ngFor="let product of products" [ngValue]="product"
+                  name="selectedLevel" id="selectedLevel" class="form-control">{{product.name}}</option>
+        </select>
+      </div>
+      <div class="form-group col-md-2">
+        <button type="button" class="btn-primary" (click)="addCart()">Add Item</button>
+      </div>
+    </div>
+<div>
+
+<div class="col-6" *ngIf="cartProducts.length>0">
+  <table class="table table-striped">
+    <thead>
+        <th>Item Name </th>
+        <th>Quantity</th>
+        <th>Cost</th>
+        <th>Tax</th>
+        <th>Total</th>
+        <th></th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let cart of cartProducts;let i = index">
+        <td>{{cart.name}}</td>
+        <td><input class="form-control" type="text" [(ngModel)]="cart.quantity" [value]="cart.quantity" (keyup)="incQuantity(cart,i)"></td>
+        <td>{{cart.price}}</td>
+        <td>{{cart.totalTax}}</td>
+        <td>{{cart.itemTotal}}</td>
+        <td align="center">
+          <a (click)="removeCart(cart,i)">[x]</a>
+        </td>
+      </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+          <td colspan="2"></td>
+          <td colspan="2">Total(With Tax):</td>
+          <td colspan="4">{{grandTotal}}</td>
+        </tr>
+    </tfoot>
+  </table>
+
+</div>
+
+</div>
